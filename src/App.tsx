@@ -8,6 +8,7 @@ interface Task {
   isCompleted: boolean;
 }
 export default function App() {
+  const [filter, setFilter]= useState<"all"|"completed" | "incomplete">("all")
   const [tasks, setTasks] = useState<Task[]>(() => {
     const saved = localStorage.getItem("tasks");
     return saved ? JSON.parse(saved) : [];
@@ -44,7 +45,11 @@ export default function App() {
       )
     );
   };
-  
+const filteredTasks = tasks.filter((task)=>{
+  if (filter === "completed")return task.isCompleted;
+  if(filter==="incomplete")return !task.isCompleted;
+  return true;
+})  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4 sm:p-8">
@@ -61,8 +66,25 @@ export default function App() {
           A clean and minimal task manager to organize your life
         </p>
         <AddTaskForm onAdd={handleAddTask} />
+       <div className=" flex gap-2 justify-center mb-4">
+<button 
+onClick={()=>setFilter("all")}
+className={`btn btn-sm ${ filter=== "all" ? "btn-primary": "btn-outline"}`}>
+ALL
+</button>
+<button
+onClick={()=>setFilter("completed")}
+className={`btn btn-sm ${filter=== "completed"? "btn-primary":"btn-outline"}`}>
+Complete
+</button>
+<button 
+onClick={()=>setFilter("incomplete")}
+className={`btn btn-sm ${filter ==="incomplete"? "btn-primary": "btn-outline"}`}>
+Incomplete
+</button>
+       </div>
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
           onToggle={handleToggleTask}
           onDelete={handleDeleteTask}
           onEdit={handleEditTask}
