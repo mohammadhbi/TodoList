@@ -4,6 +4,7 @@ import TaskList from "./components/TaskList";
 import SearchBar from "./components/SearchBar";
 import FilterControls from "./components/FilterControls";
 import { motion } from "framer-motion";
+import EmptyState from "./EmptyState";
 
 interface Task {
   id: number;
@@ -84,12 +85,14 @@ export default function App() {
           onClear={() => setSearchQuery("")}
         />
         <FilterControls value={filter} onChange={setFilter} />
-        <TaskList
-          tasks={filteredTasks}
-          onToggle={handleToggleTask}
-          onDelete={handleDeleteTask}
-          onEdit={handleEditTask}
-        />
+       {filteredTasks.length===0 ?(
+        <EmptyState/>
+       ): ( <TaskList
+        tasks={filteredTasks}
+        onToggle={handleToggleTask}
+        onDelete={handleDeleteTask}
+        onEdit={handleEditTask}
+      />)}
       </motion.div>
     </div>
   );
