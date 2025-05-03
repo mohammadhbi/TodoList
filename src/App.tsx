@@ -66,6 +66,11 @@ export default function App() {
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((task) => task.isCompleted).length;
   const remainingTasks = totalTasks - completedTasks;
+
+  const handleClearCompleted = () => {
+    setTasks((prev) => prev.filter((task) => !task.isCompleted));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4 sm:p-8">
       <motion.div
@@ -103,6 +108,16 @@ export default function App() {
           completed={completedTasks}
           remaining={remainingTasks}
         />
+        {completedTasks > 0 && (
+          <div className="flex justify-center mb-4">
+            <button
+              onClick={handleClearCompleted}
+              className="btn btn-sm btn-error btn-outline"
+            >
+              Clear Completed Tasks
+            </button>
+          </div>
+        )}
       </motion.div>
     </div>
   );
