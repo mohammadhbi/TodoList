@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import AddTaskForm from "./components/AddTaskForm";
 import TaskList from "./components/TaskList";
+import SearchBar from "./components/SearchBar";
+import FilterControls from "./components/FilterControls";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
 
 interface Task {
   id: number;
   title: string;
   isCompleted: boolean;
 }
+
 export default function App() {
   const [filter, setFilter] = useState<"all" | "completed" | "incomplete">(
     "all"
@@ -39,6 +41,7 @@ export default function App() {
       )
     );
   };
+
   const handleDeleteTask = (id: number) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
@@ -48,6 +51,7 @@ export default function App() {
       prev.map((task) => (task.id === id ? { ...task, title: newTitle } : task))
     );
   };
+
   const filteredTasks = tasks
     .filter((task) => {
       if (filter === "completed") return task.isCompleted;
@@ -55,7 +59,7 @@ export default function App() {
       return true;
     })
     .filter((task) =>
-      task.title.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+      task.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
   return (
@@ -72,55 +76,14 @@ export default function App() {
         <p className="text-gray-600 text-lg sm:text-xl pb-8">
           A clean and minimal task manager to organize your life
         </p>
-        <AddTaskForm onAdd={handleAddTask} />
-        <div className=" flex gap-2 justify-center mb-4">
-          <button
-            onClick={() => setFilter("all")}
-            className={`btn btn-sm ${
-              filter === "all" ? "btn-primary" : "btn-outline"
-            }`}
-          >
-            ALL
-          </button>
-          <button
-            onClick={() => setFilter("completed")}
-            className={`btn btn-sm ${
-              filter === "completed" ? "btn-primary" : "btn-outline"
-            }`}
-          >
-            Complete
-          </button>
-          <button
-            onClick={() => setFilter("incomplete")}
-            className={`btn btn-sm ${
-              filter === "incomplete" ? "btn-primary" : "btn-outline"
-            }`}
-          >
-            Incomplete
-          </button>
-          <div className="relative max-w-md mx-auto mb-4">
-            <input
-              type="text"
-              placeholder="Search tasks..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="input input-bordered w-full pr-10"
-            />
 
-            <button
-              onClick={() => setSearchQuery("")}
-              disabled={!searchQuery}
-              className={`absolute right-3 top-1/2 -translate-y-1/2 transition-opacity ${
-                searchQuery
-                  ? "text-gray-600 opacity-100"
-                  : "opacity-30 cursor-default"
-              }`}
-              aria-label="Clear search"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        </div>
+        <AddTaskForm onAdd={handleAddTask} />
+        <SearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          onClear={() => setSearchQuery("")}
+        />
+        <FilterControls value={filter} onChange={setFilter} />
         <TaskList
           tasks={filteredTasks}
           onToggle={handleToggleTask}
