@@ -10,6 +10,7 @@ export interface TaskItemProps {
   onEdit?: (newTitle: string) => void;
   pinned?:boolean;
   onTogglePin?:()=> void;
+  dragListeners?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 export interface AddTaskFormProps {

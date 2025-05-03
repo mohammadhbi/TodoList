@@ -13,6 +13,7 @@ export default function TaskItem({
   onTogglePin,
   pinned = false,
   onEdit,
+  dragListeners,
 }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
@@ -37,7 +38,7 @@ export default function TaskItem({
   };
 
   return (
-    <motion.li
+    <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9 }}
@@ -113,7 +114,14 @@ export default function TaskItem({
         >
           <Pin size={16} fill={pinned ? "currentColor" : "none"} />
         </button>
+        <button
+          {...dragListeners}
+          className="cursor-grab text-gray-400 hover:text-gray-600"
+          title="Drag"
+        >
+          ⠿
+        </button>
       </div>
-    </motion.li>
+    </motion.div>
   );
 }

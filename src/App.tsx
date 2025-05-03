@@ -124,6 +124,7 @@ export default function App() {
               onDelete={handleDeleteTask}
               onEdit={handleEditTask}
               onTogglePin={handleTogglePin}
+              onReorder={(newTasks) => setTasks(newTasks)}
             />
           </>
         )}
