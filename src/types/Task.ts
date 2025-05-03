@@ -4,5 +4,6 @@ export interface Task {
     isCompleted: boolean;
     category: string;
     priority: "low" | "medium" | "high";
+    pinned?: boolean;
   }
   

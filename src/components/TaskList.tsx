@@ -2,7 +2,7 @@ import TaskItem from "./TaskItem";
 import { TaskListProps } from "../types/Props";
 
 // A component that renders the list of tasks
-export default function TaskList({ tasks ,onToggle,onDelete,onEdit}: TaskListProps) {
+export default function TaskList({ tasks ,onToggle,onDelete,onEdit, onTogglePin}: TaskListProps) {
   return (
     <div>
       <ul>
@@ -13,9 +13,11 @@ export default function TaskList({ tasks ,onToggle,onDelete,onEdit}: TaskListPro
             category={task.category}
             priority={task.priority}
             isCompleted={task.isCompleted}
+            pinned={task.pinned}
             onToggle={() => onToggle(task.id)}
             onDelete={() => onDelete(task.id)}
             onEdit={(newTitle) => onEdit(task.id, newTitle)}
+            onTogglePin={() => onTogglePin(task.id)} 
           />
         ))}
       </ul>

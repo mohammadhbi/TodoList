@@ -8,6 +8,8 @@ export interface TaskItemProps {
   onToggle?: () => void;
   onDelete?: () => void;
   onEdit?: (newTitle: string) => void;
+  pinned?:boolean;
+  onTogglePin?:()=> void;
 }
 
 export interface AddTaskFormProps {
@@ -19,6 +21,7 @@ export interface TaskListProps {
     onToggle: (id: number) => void;
     onDelete: (id: number) => void;
     onEdit: (id: number, newTitle: string) => void;
+    onTogglePin: (id: number) => void;
   }
  export interface TaskStatsProps {
     total: number;

@@ -24,13 +24,18 @@ export default function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleAddTask = (title: string, category: string,priority: "low" | "medium" | "high") => {
+  const handleAddTask = (
+    title: string,
+    category: string,
+    priority: "low" | "medium" | "high"
+  ) => {
     const newTask: Task = {
       id: Date.now(),
       title,
       category,
       priority,
       isCompleted: false,
+      pinned: false,
     };
     setTasks((prev) => [...prev, newTask]);
   };
@@ -61,13 +66,25 @@ export default function App() {
     })
     .filter((task) =>
       task.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
+    .sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      return 0;
+    });
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((task) => task.isCompleted).length;
   const remainingTasks = totalTasks - completedTasks;
 
   const handleClearCompleted = () => {
     setTasks((prev) => prev.filter((task) => !task.isCompleted));
+  };
+  const handleTogglePin = (id: number) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, pinned: !task.pinned } : task
+      )
+    );
   };
 
   return (
@@ -106,6 +123,7 @@ export default function App() {
               onToggle={handleToggleTask}
               onDelete={handleDeleteTask}
               onEdit={handleEditTask}
+              onTogglePin={handleTogglePin}
             />
           </>
         )}

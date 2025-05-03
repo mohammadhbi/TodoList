@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, Trash2, Pencil } from "lucide-react";
+import { CheckCircle, Trash2, Pencil, Pin } from "lucide-react";
 import { TaskItemProps } from "../types/Props";
 
 export default function TaskItem({
@@ -10,6 +10,8 @@ export default function TaskItem({
   isCompleted = false,
   onToggle,
   onDelete,
+  onTogglePin,
+  pinned = false,
   onEdit,
 }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
@@ -101,6 +103,15 @@ export default function TaskItem({
           className="btn btn-sm btn-circle btn-outline hover:bg-red-500 hover:border-red-500 hover:text-white"
         >
           <Trash2 size={16} />
+        </button>
+        <button
+          onClick={onTogglePin}
+          className={`btn btn-sm btn-circle btn-outline ${
+            pinned ? "bg-yellow-300 border-yellow-400 text-yellow-900" : ""
+          }`}
+          title={pinned ? "Unpin" : "Pin task"}
+        >
+          <Pin size={16} fill={pinned ? "currentColor" : "none"} />
         </button>
       </div>
     </motion.li>
