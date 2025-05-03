@@ -6,18 +6,19 @@ import FilterControls from "./components/FilterControls";
 import { motion } from "framer-motion";
 import EmptyState from "./EmptyState";
 import TaskStats from "./components/TaskStats";
-
+import TaskBackupControls from "./components/TaskBackupControls";
 interface Task {
   id: number;
   title: string;
   isCompleted: boolean;
-  category:string;
+  category: string;
 }
 
 export default function App() {
   const [filter, setFilter] = useState<"all" | "completed" | "incomplete">(
     "all"
   );
+
   const [searchQuery, setSearchQuery] = useState("");
   const [tasks, setTasks] = useState<Task[]>(() => {
     const saved = localStorage.getItem("tasks");
@@ -28,7 +29,7 @@ export default function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleAddTask = (title: string , category:string) => {
+  const handleAddTask = (title: string, category: string) => {
     const newTask: Task = {
       id: Date.now(),
       title,
@@ -98,13 +99,21 @@ export default function App() {
         {filteredTasks.length === 0 ? (
           <EmptyState />
         ) : (
-          <TaskList
-            tasks={filteredTasks}
-            onToggle={handleToggleTask}
-            onDelete={handleDeleteTask}
-            onEdit={handleEditTask}
-          />
+          <>
+            <div className="mb-4 flex justify-between items-center">
+              <h2 className="text-xl font-bold">Your Tasks</h2>
+              <TaskBackupControls tasks={tasks} setTasks={setTasks} />
+            </div>
+
+            <TaskList
+              tasks={filteredTasks}
+              onToggle={handleToggleTask}
+              onDelete={handleDeleteTask}
+              onEdit={handleEditTask}
+            />
+          </>
         )}
+
         <TaskStats
           total={totalTasks}
           completed={completedTasks}
