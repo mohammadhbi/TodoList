@@ -1,54 +1,74 @@
-# React + TypeScript + Vite
+#  ToDoApp — Advanced & Elegant Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A highly interactive and well-architected task management web application built with **React + TypeScript**, showcasing best practices in component design, state management, UX, and progressive enhancement.
 
-Currently, two official plugins are available:
+[ Live Demo](https://todolistdeployed.netlify.app/) • [ GitHub Repo](https://github.com/mohammadhbi/TodoList)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+##  Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-  Add / Edit / Delete tasks with a clean UI
+-  Pin important tasks for quick access
+-  Real-time search with instant filtering
+-  Smart filters: All / Completed / Incomplete
+-  Task grouping by category
+-  Priority levels: Low / Medium / High (with color badges)
+-  Drag & Drop task reordering (powered by `@dnd-kit`)
+-  Persistent storage via `localStorage`
+-  Export & Import tasks as `.json` files
+-  Smooth animations using `framer-motion`
+-  Responsive design with **TailwindCSS** + **DaisyUI**
+-  Fully modular, scalable, and strongly typed codebase
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+##  Screenshots
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![Task List](image.png)
+![Filter & Search](image-1.png)
+![Drag & Drop](image-2.png)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+##  Tech Stack
+
+| Tool            | Purpose                            |
+|-----------------|-------------------------------------|
+| React + Vite    | Frontend Framework                  |
+| TypeScript      | Type safety and developer experience |
+| TailwindCSS     | Utility-first styling               |
+| DaisyUI         | UI components and themes            |
+| Framer Motion   | Animations and transitions          |
+| DnD Kit         | Drag & Drop interaction             |
+| LocalStorage    | Data persistence                    |
+
+---
+
+##  Architecture & Design Decisions
+
+- Components are modular, reusable, and fully typed with custom props.
+- State is managed using React hooks with top-level control in `App.tsx`.
+- `TaskItem` is decoupled for full interactivity and animation control.
+- Drag & Drop logic is isolated and uses a custom drag handle to prevent UI conflicts.
+- Code is written with scalability, maintainability, and readability in mind (folder structure, separation of concerns, etc.).
+
+---
+
+##  Folder Structure
+
+```bash
+src/
+├── components/
+│   ├── AddTaskForm.tsx
+│   ├── TaskList.tsx
+│   ├── TaskItem.tsx
+│   ├── TaskStats.tsx
+│   ├── FilterControls.tsx
+│   ├── SearchBar.tsx
+│   └── TaskBackupControls.tsx
+├── types/
+│   ├── Task.ts
+│   └── Props.ts
+├── App.tsx
+└── main.tsx
