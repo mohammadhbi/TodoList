@@ -5,6 +5,7 @@ import { CheckCircle, Trash2, Pencil } from "lucide-react";
 interface TaskItemProps {
   title: string;
   isCompleted?: boolean;
+  category: string;
   onToggle?: () => void;
   onDelete?: () => void;
   onEdit?: (newTitle: string) => void;
@@ -12,6 +13,7 @@ interface TaskItemProps {
 
 export default function TaskItem({
   title,
+  category,
   isCompleted = false,
   onToggle,
   onDelete,
@@ -26,6 +28,24 @@ export default function TaskItem({
       setIsEditing(false);
     }
   };
+
+  const getCategoryBadgeStyle = (category: string) => {
+    switch (category.toLowerCase()) {
+      case "work":
+        return "bg-blue-100 text-blue-800";
+      case "personal":
+        return "bg-green-100 text-green-800";
+      case "shopping":
+        return "bg-yellow-100 text-yellow-800";
+      case "fitness":
+        return "bg-red-100 text-red-800";
+      case "study":
+        return "bg-purple-100 text-purple-800";
+      default:
+        return "bg-gray-200 text-gray-700";
+    }
+  };
+  
 
   return (
     <motion.li
@@ -47,13 +67,22 @@ export default function TaskItem({
           autoFocus
         />
       ) : (
-        <span
-          className={`flex-1 text-sm sm:text-base transition-colors duration-200 ${
-            isCompleted ? "line-through text-green-700" : "text-gray-800"
-          }`}
-        >
-          {title}
-        </span>
+        <div className="flex-1">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <span
+              className={`block text-sm sm:text-base transition-colors duration-200 ${
+                isCompleted ? "line-through text-green-700" : "text-gray-800"
+              }`}
+            >
+              {title}
+            </span>
+            <span
+              className={`px-2 py-1 text-xs rounded font-medium ${getCategoryBadgeStyle(category)}`}
+            >
+              {category}
+            </span>
+          </div>
+        </div>
       )}
 
       <div className="flex gap-2 items-center ml-2">

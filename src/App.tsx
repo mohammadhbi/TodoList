@@ -11,6 +11,7 @@ interface Task {
   id: number;
   title: string;
   isCompleted: boolean;
+  category:string;
 }
 
 export default function App() {
@@ -27,10 +28,11 @@ export default function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleAddTask = (title: string) => {
+  const handleAddTask = (title: string , category:string) => {
     const newTask: Task = {
       id: Date.now(),
       title,
+      category,
       isCompleted: false,
     };
     setTasks((prev) => [...prev, newTask]);

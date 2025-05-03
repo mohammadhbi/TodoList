@@ -3,6 +3,7 @@ interface Task {
   id: number;
   title: string;
   isCompleted: boolean;
+  category: string;
 }
 interface TaskListProps {
   tasks: Task[];
@@ -20,6 +21,7 @@ export default function TaskList({ tasks ,onToggle,onDelete,onEdit}: TaskListPro
           <TaskItem
             key={task.id}
             title={task.title}
+            category={task.category}
             isCompleted={task.isCompleted}
             onToggle={() => onToggle(task.id)}
             onDelete={() => onDelete(task.id)}
