@@ -7,12 +7,7 @@ import { motion } from "framer-motion";
 import EmptyState from "./EmptyState";
 import TaskStats from "./components/TaskStats";
 import TaskBackupControls from "./components/TaskBackupControls";
-interface Task {
-  id: number;
-  title: string;
-  isCompleted: boolean;
-  category: string;
-}
+import { Task } from "./types/Task";
 
 export default function App() {
   const [filter, setFilter] = useState<"all" | "completed" | "incomplete">(
@@ -29,11 +24,12 @@ export default function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleAddTask = (title: string, category: string) => {
+  const handleAddTask = (title: string, category: string,priority: "low" | "medium" | "high") => {
     const newTask: Task = {
       id: Date.now(),
       title,
       category,
+      priority,
       isCompleted: false,
     };
     setTasks((prev) => [...prev, newTask]);

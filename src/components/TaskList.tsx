@@ -1,10 +1,5 @@
 import TaskItem from "./TaskItem";
-interface Task {
-  id: number;
-  title: string;
-  isCompleted: boolean;
-  category: string;
-}
+import { Task } from "../types/Task";
 interface TaskListProps {
   tasks: Task[];
   onToggle: (id: number) => void;
@@ -22,6 +17,7 @@ export default function TaskList({ tasks ,onToggle,onDelete,onEdit}: TaskListPro
             key={task.id}
             title={task.title}
             category={task.category}
+            priority={task.priority}
             isCompleted={task.isCompleted}
             onToggle={() => onToggle(task.id)}
             onDelete={() => onDelete(task.id)}

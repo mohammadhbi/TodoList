@@ -1,9 +1,4 @@
-interface Task {
-    id: number;
-    title: string;
-    isCompleted: boolean;
-    category: string;
-  }
+import { Task } from "../types/Task";
   
   interface TaskBackupControlsProps {
     tasks: Task[];
