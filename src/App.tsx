@@ -72,12 +72,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4 sm:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-200 to-white px-4 py-6 sm:px-8">
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-center mb-8"
+        className="text-center mb-8 max-w-2xl mx-auto"
       >
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 mb-3">
           Manage Your Day Like a Pro
