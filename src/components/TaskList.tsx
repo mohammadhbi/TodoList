@@ -1,18 +1,30 @@
-interface TaskListProps{
-    tasks: string[];
+import TaskItem from "./TaskItem";
+interface Task {
+  id: number;
+  title: string;
+  isCompleted: boolean;
+}
+interface TaskListProps {
+  tasks: Task[];
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
 // A component that renders the list of tasks
-export default function TaskList({tasks}:TaskListProps) {
+export default function TaskList({ tasks ,onToggle,onDelete}: TaskListProps) {
   return (
     <div>
       <ul>
-        {tasks.map((task,index)=>(
-            <li key={index}>
-                {task}
-            </li>
+        {tasks.map((task) => (
+          <TaskItem
+            key={task.id}
+            title={task.title}
+            isCompleted={task.isCompleted}
+            onToggle={() => onToggle(task.id)}
+            onDelete={() => onDelete(task.id)}
+          />
         ))}
       </ul>
     </div>
-  )
+  );
 }
