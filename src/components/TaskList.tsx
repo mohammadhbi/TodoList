@@ -1,11 +1,5 @@
 import TaskItem from "./TaskItem";
-import { Task } from "../types/Task";
-interface TaskListProps {
-  tasks: Task[];
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-  onEdit: (id: number, newTitle: string) => void;
-}
+import { TaskListProps } from "../types/Props";
 
 // A component that renders the list of tasks
 export default function TaskList({ tasks ,onToggle,onDelete,onEdit}: TaskListProps) {

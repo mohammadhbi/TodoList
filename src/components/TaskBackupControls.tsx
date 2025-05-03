@@ -1,9 +1,4 @@
-import { Task } from "../types/Task";
-  
-  interface TaskBackupControlsProps {
-    tasks: Task[];
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-  }
+  import { TaskBackupControlsProps } from "../types/Props";
   
   export default function TaskBackupControls({ tasks, setTasks }: TaskBackupControlsProps) {
     const handleExport = () => {

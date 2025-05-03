@@ -1,13 +1,7 @@
 import { useState } from "react";
-
+import { AddTaskFormProps } from "../types/Props";
 // Props type definition: receives a function to add a new task
-interface AddTaskFormProps {
-  onAdd: (
-    title: string,
-    category: string,
-    priority: "low" | "medium" | "high"
-  ) => void;
-}
+
 
 const CATEGORIES = ["personal", "Work", "shopping", "Other"];
 

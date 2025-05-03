@@ -1,16 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Trash2, Pencil } from "lucide-react";
-
-interface TaskItemProps {
-  title: string;
-  isCompleted?: boolean;
-  category: string;
-  priority: "low" | "medium" | "high";
-  onToggle?: () => void;
-  onDelete?: () => void;
-  onEdit?: (newTitle: string) => void;
-}
+import { TaskItemProps } from "../types/Props";
 
 export default function TaskItem({
   title,

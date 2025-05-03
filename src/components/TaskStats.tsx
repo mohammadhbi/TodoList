@@ -1,8 +1,5 @@
-interface TaskStatsProps {
-    total: number;
-    completed: number;
-    remaining : number;
-}
+import { TaskStatsProps } from "../types/Props";
+
 export default function TaskStats({total, completed,remaining}:TaskStatsProps) {
   return (
     <div className="flex justify-center gap-4 text-sm text-gray-600 mb-4">
