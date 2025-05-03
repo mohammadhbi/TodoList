@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import FilterControls from "./components/FilterControls";
 import { motion } from "framer-motion";
 import EmptyState from "./EmptyState";
+import TaskStats from "./components/TaskStats";
 
 interface Task {
   id: number;
@@ -62,7 +63,9 @@ export default function App() {
     .filter((task) =>
       task.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter((task) => task.isCompleted).length;
+  const remainingTasks = totalTasks - completedTasks;
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4 sm:p-8">
       <motion.div
@@ -85,14 +88,21 @@ export default function App() {
           onClear={() => setSearchQuery("")}
         />
         <FilterControls value={filter} onChange={setFilter} />
-       {filteredTasks.length===0 ?(
-        <EmptyState/>
-       ): ( <TaskList
-        tasks={filteredTasks}
-        onToggle={handleToggleTask}
-        onDelete={handleDeleteTask}
-        onEdit={handleEditTask}
-      />)}
+        {filteredTasks.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <TaskList
+            tasks={filteredTasks}
+            onToggle={handleToggleTask}
+            onDelete={handleDeleteTask}
+            onEdit={handleEditTask}
+          />
+        )}
+        <TaskStats
+          total={totalTasks}
+          completed={completedTasks}
+          remaining={remainingTasks}
+        />
       </motion.div>
     </div>
   );
