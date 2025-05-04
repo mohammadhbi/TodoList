@@ -8,18 +8,25 @@ export default function FilterControls({
   onChange,
 }: FilterControlsProps) {
   return (
-    <div className="flex gap-2 justify-center mb-4">
-      {["all", "completed", "incomplete"].map((type) => (
-        <button
-          key={type}
-          onClick={() => onChange(type as FilterControlsProps["value"])}
-          className={`btn btn-sm ${
-            value === type ? "btn-primary" : "btn-outline"
-          }`}
-        >
-          {type.charAt(0).toUpperCase() + type.slice(1)}
-        </button>
-      ))}
+    <div className="flex justify-center gap-3 mb-6">
+      {["all", "completed", "incomplete"].map((type) => {
+        const isActive = value === type;
+        return (
+          <button
+            key={type}
+            onClick={() => onChange(type as FilterControlsProps["value"])}
+            className={`btn btn-sm rounded-full px-4 transition font-medium shadow-sm
+          ${
+            isActive
+              ? "bg-emerald-500 text-white hover:bg-emerald-600"
+              : "bg-white border border-emerald-300 text-emerald-600 hover:bg-emerald-50"
+          }
+        `}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+        );
+      })}
     </div>
   );
 }

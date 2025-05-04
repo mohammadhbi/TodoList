@@ -41,12 +41,13 @@ export default function TaskItem({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      className={`flex items-center justify-between p-3 rounded-lg shadow-sm transition-all duration-300 ${
-        isCompleted
-          ? "bg-green-100 border border-green-300"
-          : "bg-base-200 border border-base-300 hover:bg-base-300"
-      }`}
+      exit={{ opacity: 0, scale: 0.95 }}
+      className={`flex items-center mb-3 justify-between p-4 rounded-2xl shadow-md border-l-4 transition-all duration-300 group
+    ${
+      isCompleted
+        ? "bg-green-100 border-green-400"
+        : "bg-white hover:bg-gradient-to-r hover:from-emerald-50 hover:to-white border-emerald-400"
+    }`}
     >
       {isEditing ? (
         <input
@@ -59,33 +60,41 @@ export default function TaskItem({
       ) : (
         <div className="flex-1">
           <span
-            className={`block text-sm sm:text-base transition-colors duration-200 ${
-              isCompleted ? "line-through text-green-700" : "text-gray-800"
+            className={`block text-base font-medium transition-colors duration-200 ${
+              isCompleted
+                ? "line-through text-green-700"
+                : "text-gray-800 group-hover:text-emerald-700"
             }`}
           >
             {title}
           </span>
           <div className="flex gap-2 mt-1">
-            <span className="badge badge-outline text-xs">{category}</span>
-            <span className={`badge text-xs ${getPriorityColor(priority)}`}>
+            <span className="badge bg-emerald-100 text-emerald-700 text-xs border-none">
+              {category}
+            </span>
+            <span
+              className={`badge text-xs text-white border-none ${getPriorityColor(
+                priority
+              )}`}
+            >
               {priority}
             </span>
           </div>
         </div>
       )}
 
-      <div className="flex gap-2 items-center ml-2">
+      <div className="flex gap-2 items-center ml-3">
         {isEditing ? (
           <button
             onClick={handleSave}
-            className="btn btn-sm btn-outline btn-success"
+            className="btn btn-sm btn-success text-white shadow-md"
           >
             Save
           </button>
         ) : (
           <button
             onClick={() => setIsEditing(true)}
-            className="btn btn-sm btn-outline"
+            className="btn btn-sm btn-outline hover:border-emerald-500 hover:text-emerald-600"
             title="Edit task"
           >
             <Pencil size={16} />
@@ -94,26 +103,30 @@ export default function TaskItem({
 
         <button
           onClick={onToggle}
-          className="btn btn-sm btn-circle btn-outline hover:bg-green-500 hover:border-green-500 hover:text-white"
+          className="btn btn-sm btn-circle hover:bg-emerald-500 hover:border-emerald-500 hover:text-white border-gray-300"
         >
           <CheckCircle size={16} />
         </button>
 
         <button
           onClick={onDelete}
-          className="btn btn-sm btn-circle btn-outline hover:bg-red-500 hover:border-red-500 hover:text-white"
+          className="btn btn-sm btn-circle hover:bg-red-500 hover:border-red-500 hover:text-white border-gray-300"
         >
           <Trash2 size={16} />
         </button>
+
         <button
           onClick={onTogglePin}
-          className={`btn btn-sm btn-circle btn-outline ${
-            pinned ? "bg-yellow-300 border-yellow-400 text-yellow-900" : ""
+          className={`btn btn-sm btn-circle ${
+            pinned
+              ? "bg-yellow-300 border-yellow-400 text-yellow-900"
+              : "hover:border-yellow-400 hover:text-yellow-500"
           }`}
           title={pinned ? "Unpin" : "Pin task"}
         >
           <Pin size={16} fill={pinned ? "currentColor" : "none"} />
         </button>
+
         <button
           {...dragListeners}
           className="cursor-grab text-gray-400 hover:text-gray-600"

@@ -19,6 +19,7 @@ export interface AddTaskFormProps {
 
 export interface TaskListProps {
     tasks: Task[];
+    filter?: "all" | "completed" | "incomplete"; 
     onToggle: (id: number) => void;
     onDelete: (id: number) => void;
     onEdit: (id: number, newTitle: string) => void;
